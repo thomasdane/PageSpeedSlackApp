@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Sample SAM Template for sam-app
+
+  '
+Globals:
+  Function:
+    Timeout: 10
+Outputs:
+  HelloWorldApi:
+    Description: API Gateway endpoint URL for Prod stage for Page Speed function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/pagespeed/
+  HelloWorldFunction:
+    Description: Page Speed Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - HelloWorldFunction
+      - Arn
+  HelloWorldFunctionIamRole:
+    Description: Implicit IAM Role created for Page Speed function
+    Value:
+      Fn::GetAtt:
+      - HelloWorldFunctionRole
+      - Arn
+Resources:
+  HelloWorldFunction:
+    Properties:
+      CodeUri: s3://td-sam-hello-world/68d1d25b16f3fa75bbcb7a02ab5966e1
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      Events:
+        HelloWorld:
+          Properties:
+            Method: get
+            Path: /pagespeed
+          Type: Api
+      Handler: HelloWorld::HelloWorld.Function::FunctionHandler
+      Runtime: dotnetcore2.0
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31
