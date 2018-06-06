@@ -13,43 +13,6 @@ using Amazon.Lambda.APIGatewayEvents;
 
 namespace HelloWorld
 {
-    public class Function
-    {
-        private static readonly HttpClient client = new HttpClient();
-        private static string UrlToTest = "https://comparethemarket.com";
-
-        private static async Task<string> GetPageSpeedScore()
-        {
-            var googlePageSpeedApi = "https://www.googleapis.com/pagespeedonline/v4/runPagespeed?";
-            var urlSeparator = "url=";
-            var keySeparator = "?key=";
-            
-            // var response = await client.GetAsync(googlePageSpeedApi + urlSeparator + UrlToTest + keySeparator + apiKey).ConfigureAwait(continueOnCapturedContext:false);
-            // var json = await response.Content.ReadAsStringAsync();
-            // dynamic d = JsonConvert.DeserializeObject(json);
-            // return d.ruleGroups.SPEED.score;
-            return "foo";
-        }
-
-        public APIGatewayProxyResponse FunctionHandler(APIGatewayProxyRequest apigProxyEvent, ILambdaContext context)
-        {
-
-            string pageSpeedScore = GetPageSpeedScore().Result;
-            Dictionary<string, string> body = new Dictionary<string, string>
-            {
-                { "Site", UrlToTest },
-                { "Google Page Speed", pageSpeedScore },
-            };
-
-            return new APIGatewayProxyResponse
-            {
-                Body = JsonConvert.SerializeObject(body),
-                StatusCode = 200,
-                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
-            };
-        }
-    }
-
     public class PageSpeed
     {
         private static readonly HttpClient client = new HttpClient();

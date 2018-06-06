@@ -14,28 +14,28 @@ Outputs:
     Description: Page Speed Lambda Function ARN
     Value:
       Fn::GetAtt:
-      - HelloWorldFunction
+      - PageSpeedFunction
       - Arn
   HelloWorldFunctionIamRole:
     Description: Implicit IAM Role created for Page Speed function
     Value:
       Fn::GetAtt:
-      - HelloWorldFunctionRole
+      - PageSpeedFunctionRole
       - Arn
 Resources:
-  HelloWorldFunction:
+  PageSpeedFunction:
     Properties:
-      CodeUri: s3://td-sam-hello-world/68d1d25b16f3fa75bbcb7a02ab5966e1
+      CodeUri: s3://td-sam-hello-world/57189f3882fe263e99e6d4dc9dcd2b0a
       Environment:
         Variables:
           PARAM1: VALUE
       Events:
-        HelloWorld:
+        PageSpeed:
           Properties:
-            Method: get
+            Method: post
             Path: /pagespeed
           Type: Api
-      Handler: HelloWorld::HelloWorld.Function::FunctionHandler
+      Handler: HelloWorld::HelloWorld.PageSpeed::PageSpeedHandler
       Runtime: dotnetcore2.0
     Type: AWS::Serverless::Function
 Transform: AWS::Serverless-2016-10-31

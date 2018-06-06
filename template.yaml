@@ -11,22 +11,6 @@ Globals:
 
 Resources:
 
-    HelloWorldFunction:
-        Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-        Properties:
-            CodeUri: src/HelloWorld/bin/Debug/netcoreapp2.0/publish
-            Handler: HelloWorld::HelloWorld.Function::FunctionHandler
-            Runtime: dotnetcore2.0
-            Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
-                Variables:
-                    PARAM1: VALUE
-            Events:
-                HelloWorld:
-                    Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-                    Properties:
-                        Path: /hello
-                        Method: get
-
     PageSpeedFunction:
         Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
         Properties:
@@ -51,8 +35,8 @@ Outputs:
 
     HelloWorldFunction:
       Description: "Page Speed Lambda Function ARN"
-      Value: !GetAtt HelloWorldFunction.Arn
+      Value: !GetAtt PageSpeedFunction.Arn
 
     HelloWorldFunctionIamRole:
       Description: "Implicit IAM Role created for Page Speed function"
-      Value: !GetAtt HelloWorldFunctionRole.Arn
+      Value: !GetAtt PageSpeedFunctionRole.Arn
